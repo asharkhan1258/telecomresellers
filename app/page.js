@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { SectionHeading, ButtonLink } from "@/components/ui";
+import { SectionHeading, ButtonLink, PhoneCTA } from "@/components/ui";
 import ContactForm from "@/components/ContactForm";
 import Disclaimer from "@/components/Disclaimer";
+import CallPopup from "@/components/CallPopup";
 import { site } from "@/lib/site-config";
 
 const steps = [
@@ -64,14 +65,13 @@ export default function HomePage() {
               guesswork, no bait-and-switch pricing.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <ButtonLink href="/internet" variant="primary">See internet plans</ButtonLink>
-              <a
-                href={`tel:${site.phoneHref}`}
-                className="inline-flex items-center justify-center gap-2 border border-ink/25 px-6 py-3 text-sm font-medium text-ink hover:border-steel hover:text-steel transition-colors"
-              >
-                Call {site.phoneDisplay}
-              </a>
+              <PhoneCTA label={`Call now — ${site.phoneDisplay}`} />
+              <ButtonLink href="/internet" variant="outline">See internet plans</ButtonLink>
             </div>
+            <p className="mt-3 text-sm text-ink/55">
+              Fastest option: call and get address-level answers in one conversation.{" "}
+              <span className="text-ink/40">{site.hours}</span>
+            </p>
             <p className="mt-5 text-xs text-ink/45 max-w-md">
               {site.legalName} is not an internet service provider. We're an independent
               service that compares plans and connects you with the provider you choose.
@@ -99,6 +99,11 @@ export default function HomePage() {
             </div>
           ))}
         </div>
+
+        <CallBanner
+          title="Skip the research — call and we'll check your address live."
+          body="One call gets you the providers, real prices, and current promos at your exact address. No forms, no waiting for a callback."
+        />
       </section>
 
       {/* Plan snapshot */}
@@ -109,7 +114,10 @@ export default function HomePage() {
             title="A typical range of home internet tiers"
             lede="Exact speeds, prices, and names vary by provider and address — this is a general guide to what's out there."
           />
-          <ButtonLink href="/internet" variant="outline">Full plan details</ButtonLink>
+          <div className="flex flex-wrap gap-3">
+            <PhoneCTA label="Call for exact pricing" />
+            <ButtonLink href="/internet" variant="outline">Full plan details</ButtonLink>
+          </div>
         </div>
 
         <div className="mt-10 overflow-x-auto">
@@ -138,6 +146,13 @@ export default function HomePage() {
           *Promotional pricing shown for illustration only. Final pricing, taxes, equipment
           fees, and contract terms depend on the provider and are confirmed before you order.
         </p>
+        <div className="mt-8 flex flex-wrap items-center gap-4 border border-ink/15 bg-white px-6 py-5">
+          <p className="text-sm text-ink/70 flex-1 min-w-[220px]">
+            Want the real numbers for <span className="font-medium text-ink">your</span> address?
+            An advisor can pull them up while you're on the phone.
+          </p>
+          <PhoneCTA label={`Call ${site.phoneDisplay}`} />
+        </div>
       </section>
 
       {/* Trust points */}
@@ -195,6 +210,11 @@ export default function HomePage() {
             </details>
           ))}
         </div>
+
+        <CallBanner
+          title="Still deciding? A two-minute call usually settles it."
+          body="Ask us anything — speeds, fees, contracts, installation. If a plan fits, we connect you straight to the provider's ordering line."
+        />
       </section>
 
       {/* Contact / lead form */}
@@ -205,6 +225,17 @@ export default function HomePage() {
             title="Check what's available at your address"
             lede="Share a few details and we'll follow up with real options for your address — no automatic sign-up, no obligation."
           />
+          <div className="mt-8 border border-ink/15 bg-white px-6 py-6 max-w-md">
+            <p className="text-sm text-steel font-medium">Rather talk to a person?</p>
+            <a
+              href={`tel:${site.phoneHref}`}
+              className="mt-2 block font-display font-semibold text-2xl text-ink hover:text-steel transition-colors"
+            >
+              {site.phoneDisplay}
+            </a>
+            <p className="mt-2 text-xs text-ink/50">{site.hours}</p>
+            <PhoneCTA label="Call an advisor now" />
+          </div>
           <p className="mt-6 text-xs text-ink/45 max-w-sm">
             By submitting, you agree to be contacted by {site.legalName} about internet
             options at the address provided. See our{" "}
@@ -214,7 +245,35 @@ export default function HomePage() {
         </div>
         <ContactForm compact />
       </section>
+
+      <CallPopup />
+
+      {/* Sticky mobile call bar */}
+      <div className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-amber border-t border-ink/10 px-4 py-3">
+        <a
+          href={`tel:${site.phoneHref}`}
+          className="flex items-center justify-center gap-2 text-sm font-semibold text-ink"
+        >
+          Call now — {site.phoneDisplay}
+        </a>
+      </div>
     </>
+  );
+}
+
+function CallBanner({ title, body }) {
+  return (
+    <div className="mt-12 border border-ink/15 bg-white px-6 py-8 md:px-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+      <div>
+        <p className="text-sm text-steel font-medium">Talk to an advisor</p>
+        <h3 className="mt-1 font-display font-semibold text-xl md:text-2xl text-ink">{title}</h3>
+        <p className="mt-2 text-sm text-ink/60 max-w-lg">{body}</p>
+      </div>
+      <div className="shrink-0">
+        <PhoneCTA label={`Call ${site.phoneDisplay}`} />
+        <p className="mt-2 text-xs text-ink/45">{site.hours}</p>
+      </div>
+    </div>
   );
 }
 

@@ -63,7 +63,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t rule">
-        <div className="container-px py-5 flex flex-col md:flex-row gap-3 md:items-center md:justify-between text-xs text-ink/50">
+        <div className="container-px py-5 pb-20 md:pb-5 flex flex-col md:flex-row gap-3 md:items-center md:justify-between text-xs text-ink/50">
           <p>© {new Date().getFullYear()} {site.legalName}. All rights reserved.</p>
           <p>
             Prices, speeds, and availability vary by address and change without notice.
