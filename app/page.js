@@ -4,6 +4,7 @@ import ContactForm from "@/components/ContactForm";
 import Disclaimer from "@/components/Disclaimer";
 import CallPopup from "@/components/CallPopup";
 import { site } from "@/lib/site-config";
+import { getPhone } from "@/lib/phone";
 
 const steps = [
   {
@@ -48,7 +49,9 @@ const faqs = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const phone = await getPhone();
+
   return (
     <>
       {/* Hero */}
@@ -65,7 +68,7 @@ export default function HomePage() {
               guesswork, no bait-and-switch pricing.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <PhoneCTA label={`Call now — ${site.phoneDisplay}`} />
+              <PhoneCTA prefix="Call now —" />
               <ButtonLink href="/internet" variant="outline">See internet plans</ButtonLink>
             </div>
             <p className="mt-3 text-sm text-ink/55">
@@ -151,7 +154,7 @@ export default function HomePage() {
             Want the real numbers for <span className="font-medium text-ink">your</span> address?
             An advisor can pull them up while you're on the phone.
           </p>
-          <PhoneCTA label={`Call ${site.phoneDisplay}`} />
+          <PhoneCTA />
         </div>
       </section>
 
@@ -228,10 +231,10 @@ export default function HomePage() {
           <div className="mt-8 border border-ink/15 bg-white px-6 py-6 max-w-md">
             <p className="text-sm text-steel font-medium">Rather talk to a person?</p>
             <a
-              href={`tel:${site.phoneHref}`}
+              href={`tel:${phone.href}`}
               className="mt-2 block font-display font-semibold text-2xl text-ink hover:text-steel transition-colors"
             >
-              {site.phoneDisplay}
+              {phone.display}
             </a>
             <p className="mt-2 text-xs text-ink/50">{site.hours}</p>
             <PhoneCTA label="Call an advisor now" />
@@ -246,15 +249,15 @@ export default function HomePage() {
         <ContactForm compact />
       </section>
 
-      <CallPopup />
+      <CallPopup phone={phone} />
 
       {/* Sticky mobile call bar */}
       <div className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-amber border-t border-ink/10 px-4 py-3">
         <a
-          href={`tel:${site.phoneHref}`}
+          href={`tel:${phone.href}`}
           className="flex items-center justify-center gap-2 text-sm font-semibold text-ink"
         >
-          Call now — {site.phoneDisplay}
+          Call now — {phone.display}
         </a>
       </div>
     </>
@@ -270,7 +273,7 @@ function CallBanner({ title, body }) {
         <p className="mt-2 text-sm text-ink/60 max-w-lg">{body}</p>
       </div>
       <div className="shrink-0">
-        <PhoneCTA label={`Call ${site.phoneDisplay}`} />
+        <PhoneCTA />
         <p className="mt-2 text-xs text-ink/45">{site.hours}</p>
       </div>
     </div>

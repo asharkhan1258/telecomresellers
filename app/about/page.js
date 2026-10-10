@@ -1,5 +1,6 @@
 import { SectionHeading } from "@/components/ui";
 import { site } from "@/lib/site-config";
+import { getPhone } from "@/lib/phone";
 
 export const metadata = {
   title: "About Us",
@@ -21,7 +22,9 @@ const values = [
   },
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const phone = await getPhone();
+
   return (
     <>
       <section className="container-px py-16 md:py-20 border-b rule">
@@ -88,7 +91,7 @@ export default function AboutPage() {
         <div>
           <h2 className="font-display font-semibold text-xl text-ink">Questions about a plan?</h2>
           <p className="mt-3 text-sm text-ink/65 leading-relaxed">
-            Call <a href={`tel:${site.phoneHref}`} className="text-steel underline underline-offset-2">{site.phoneDisplay}</a> or
+            Call <a href={`tel:${phone.href}`} className="text-steel underline underline-offset-2">{phone.display}</a> or
             email <a href={`mailto:${site.email}`} className="text-steel underline underline-offset-2">{site.email}</a>, and
             we'll walk through what's available at your address.
           </p>

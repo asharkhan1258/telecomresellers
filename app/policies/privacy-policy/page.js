@@ -1,9 +1,12 @@
 import PolicyLayout from "@/components/PolicyLayout";
 import { site } from "@/lib/site-config";
+import { getPhone } from "@/lib/phone";
 
 export const metadata = { title: "Privacy Policy" };
 
-export default function PrivacyPolicyPage() {
+export default async function PrivacyPolicyPage() {
+  const phone = await getPhone();
+
   return (
     <PolicyLayout title="Privacy Policy" updated="September 1, 2026">
       <p>
@@ -59,7 +62,7 @@ export default function PrivacyPolicyPage() {
         may use an autodialer or pre-recorded message — about the request you made.
         This consent is not a condition of purchasing any service. Message and data
         rates may apply. Reply STOP to opt out of texts, or call{" "}
-        {site.phoneDisplay} to be removed from our call list.
+        {phone.display} to be removed from our call list.
       </p>
 
       <h2>Your choices</h2>
@@ -70,7 +73,7 @@ export default function PrivacyPolicyPage() {
         <li>Disable cookies in your browser (this may affect site functionality).</li>
       </ul>
       <p>
-        To exercise any of these, email {site.email} or call {site.phoneDisplay}.
+        To exercise any of these, email {site.email} or call {phone.display}.
         Residents of certain states (including California, Colorado, Connecticut,
         Virginia, and others with consumer privacy laws) may have additional statutory
         rights; this section should be expanded with counsel to reflect the specific
@@ -105,7 +108,7 @@ export default function PrivacyPolicyPage() {
         <br />
         {site.address.line1}, {site.address.city}, {site.address.state} {site.address.zip}
         <br />
-        {site.email} · {site.phoneDisplay}
+        {site.email} · {phone.display}
       </p>
     </PolicyLayout>
   );

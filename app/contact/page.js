@@ -1,12 +1,15 @@
 import ContactForm from "@/components/ContactForm";
 import { site } from "@/lib/site-config";
+import { getPhone } from "@/lib/phone";
 
 export const metadata = {
   title: "Contact Us",
   description: `Reach ${site.brandName} by phone, email, or the contact form.`,
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const phone = await getPhone();
+
   return (
     <section className="container-px py-16 md:py-20">
       <p className="text-sm text-steel font-medium mb-4">Contact us</p>
@@ -21,8 +24,8 @@ export default function ContactPage() {
       <div className="mt-12 grid lg:grid-cols-[0.85fr_1.15fr] gap-14">
         <div className="space-y-8">
           <InfoBlock label="Phone">
-            <a href={`tel:${site.phoneHref}`} className="text-steel underline underline-offset-2">
-              {site.phoneDisplay}
+            <a href={`tel:${phone.href}`} className="text-steel underline underline-offset-2">
+              {phone.display}
             </a>
             <p className="mt-1 text-xs text-ink/50">{site.hours}</p>
           </InfoBlock>

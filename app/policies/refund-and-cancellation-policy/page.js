@@ -1,9 +1,12 @@
 import PolicyLayout from "@/components/PolicyLayout";
 import { site } from "@/lib/site-config";
+import { getPhone } from "@/lib/phone";
 
 export const metadata = { title: "Refund & Cancellation Policy" };
 
-export default function RefundPolicyPage() {
+export default async function RefundPolicyPage() {
+  const phone = await getPhone();
+
   return (
     <PolicyLayout title="Refund & Cancellation Policy" updated="September 1, 2026">
       <p>
@@ -41,13 +44,13 @@ export default function RefundPolicyPage() {
       <p>
         If you'd like us to stop working on a request you submitted, or want us to
         delete the information you provided, contact {site.email} or{" "}
-        {site.phoneDisplay} and we'll confirm once it's done.
+        {phone.display} and we'll confirm once it's done.
       </p>
 
       <h2>Contact us</h2>
       <p>
         {site.legalName} · {site.address.line1}, {site.address.city}, {site.address.state}{" "}
-        {site.address.zip} · {site.email} · {site.phoneDisplay}
+        {site.address.zip} · {site.email} · {phone.display}
       </p>
     </PolicyLayout>
   );

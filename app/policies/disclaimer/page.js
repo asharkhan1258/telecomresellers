@@ -1,9 +1,12 @@
 import PolicyLayout from "@/components/PolicyLayout";
 import { site } from "@/lib/site-config";
+import { getPhone } from "@/lib/phone";
 
 export const metadata = { title: "Disclaimer" };
 
-export default function DisclaimerPage() {
+export default async function DisclaimerPage() {
+  const phone = await getPhone();
+
   return (
     <PolicyLayout title="Disclaimer" updated="September 1, 2026">
       <p>
@@ -108,7 +111,7 @@ export default function DisclaimerPage() {
         <br />
         {site.address.line1}, {site.address.city}, {site.address.state} {site.address.zip}
         <br />
-        {site.email} · {site.phoneDisplay}
+        {site.email} · {phone.display}
       </p>
     </PolicyLayout>
   );

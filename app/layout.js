@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Disclaimer from "@/components/Disclaimer";
 import { site } from "@/lib/site-config";
+import { getPhone } from "@/lib/phone";
 
 const grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -28,7 +29,14 @@ export const metadata = {
   description: site.shortDescription,
 };
 
-export default function RootLayout({ children }) {
+// Rendered per request (not prerendered at build time) so the phone number
+// read from Global Config is always current. Applies to every route below
+// this layout.
+export const dynamic = "force-dynamic";
+
+export default async function RootLayout({ children }) {
+  const phone = await getPhone();
+
   return (
     <html lang="en" className={`${grotesk.variable} ${inter.variable}`}>
       <body className="font-body antialiased flex min-h-screen flex-col">
@@ -38,7 +46,7 @@ export default function RootLayout({ children }) {
         >
           Skip to main content
         </a>
-        <Header />
+        <Header phone={phone} />
         <main id="main-content" className="flex-1">
           {children}
         </main>

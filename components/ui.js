@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { site } from "@/lib/site-config";
+import { getPhone } from "@/lib/phone";
 
 export function Eyebrow({ children }) {
   return <p className="text-sm text-steel font-medium mb-3">{children}</p>;
@@ -31,13 +31,18 @@ export function ButtonLink({ href, children, variant = "primary", ...props }) {
   );
 }
 
-export function PhoneCTA({ label }) {
+// Server component: resolves the live number itself, so callers never need to
+// interpolate it. Use `prefix` to put text before the number ("Call now —"),
+// or `label` for a button that shouldn't show the number at all.
+export async function PhoneCTA({ label, prefix }) {
+  const phone = await getPhone();
+
   return (
     <a
-      href={`tel:${site.phoneHref}`}
+      href={`tel:${phone.href}`}
       className="inline-flex items-center justify-center gap-2 bg-amber text-ink px-6 py-3 text-sm font-medium hover:bg-amber-dark transition-colors"
     >
-      {label || `Call ${site.phoneDisplay}`}
+      {label || `${prefix || "Call"} ${phone.display}`}
     </a>
   );
 }

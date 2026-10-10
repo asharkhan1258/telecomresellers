@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { site, navLinks, policyLinks } from "@/lib/site-config";
+import { getPhone } from "@/lib/phone";
 
-export default function Footer() {
+export default async function Footer() {
+  const phone = await getPhone();
+
   return (
     <footer className="border-t rule bg-white">
       <div className="container-px py-14 grid gap-10 md:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
@@ -52,7 +55,7 @@ export default function Footer() {
               {site.address.city}, {site.address.state} {site.address.zip}, {site.address.country}
             </li>
             <li>
-              <a href={`tel:${site.phoneHref}`} className="hover:text-steel">{site.phoneDisplay}</a>
+              <a href={`tel:${phone.href}`} className="hover:text-steel">{phone.display}</a>
             </li>
             <li>
               <a href={`mailto:${site.email}`} className="hover:text-steel">{site.email}</a>

@@ -6,7 +6,8 @@ import { site } from "@/lib/site-config";
 const STORAGE_KEY = "tr_call_popup_dismissed";
 const SHOW_DELAY_MS = 2500;
 
-export default function CallPopup() {
+// `phone` is resolved per request by the page rendering this popup.
+export default function CallPopup({ phone }) {
   const [open, setOpen] = useState(false);
   const closeRef = useRef(null);
 
@@ -90,7 +91,7 @@ export default function CallPopup() {
           </div>
 
           <a
-            href={`tel:${site.phoneHref}`}
+            href={`tel:${phone.href}`}
             onClick={dismiss}
             className="block bg-[#EE0000] active:bg-[#CC0000] px-6 py-5 text-center"
           >
@@ -98,7 +99,7 @@ export default function CallPopup() {
               Tap to call
             </span>
             <span className="mt-1 block font-display font-bold text-[1.75rem] text-white">
-              {site.phoneDisplay}
+              {phone.display}
             </span>
           </a>
 

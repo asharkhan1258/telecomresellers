@@ -4,7 +4,8 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { site, navLinks, policyLinks } from "@/lib/site-config";
 
-export default function Header() {
+// `phone` is resolved per request in app/layout.js from Global Config.
+export default function Header({ phone }) {
   const [policiesOpen, setPoliciesOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const policiesRef = useRef(null);
@@ -24,8 +25,8 @@ export default function Header() {
       {/* utility strip — required for Google Ads: business identity always visible */}
       <div className="hidden md:flex items-center justify-end gap-6 container-px py-1.5 text-xs text-ink/70 border-b rule">
         <span>{site.legalName}</span>
-        <a href={`tel:${site.phoneHref}`} className="hover:text-steel">
-          {site.phoneDisplay}
+        <a href={`tel:${phone.href}`} className="hover:text-steel">
+          {phone.display}
         </a>
       </div>
 
@@ -76,10 +77,10 @@ export default function Header() {
 
         <div className="hidden lg:flex items-center gap-4">
           <a
-            href={`tel:${site.phoneHref}`}
+            href={`tel:${phone.href}`}
             className="inline-flex items-center gap-2 bg-steel text-white px-5 py-2.5 text-sm font-medium hover:bg-steel-dark transition-colors"
           >
-            Call {site.phoneDisplay}
+            Call {phone.display}
           </a>
         </div>
 
@@ -125,10 +126,10 @@ export default function Header() {
               </Link>
             ))}
             <a
-              href={`tel:${site.phoneHref}`}
+              href={`tel:${phone.href}`}
               className="mt-4 inline-flex justify-center items-center gap-2 bg-steel text-white px-5 py-3 text-sm font-medium"
             >
-              Call {site.phoneDisplay}
+              Call {phone.display}
             </a>
           </nav>
         </div>

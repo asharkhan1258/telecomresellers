@@ -1,9 +1,12 @@
 import PolicyLayout from "@/components/PolicyLayout";
 import { site } from "@/lib/site-config";
+import { getPhone } from "@/lib/phone";
 
 export const metadata = { title: "Advertising Disclosure" };
 
-export default function AdvertisingDisclosurePage() {
+export default async function AdvertisingDisclosurePage() {
+  const phone = await getPhone();
+
   return (
     <PolicyLayout title="Advertising Disclosure" updated="September 1, 2026">
       <p>
@@ -49,7 +52,7 @@ export default function AdvertisingDisclosurePage() {
       <h2>Questions</h2>
       <p>
         If anything about how we're paid or how a plan was represented to you is
-        unclear, contact us at {site.email} or {site.phoneDisplay} and we'll clarify or
+        unclear, contact us at {site.email} or {phone.display} and we'll clarify or
         correct it.
       </p>
     </PolicyLayout>

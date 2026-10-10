@@ -1,9 +1,12 @@
 import PolicyLayout from "@/components/PolicyLayout";
 import { site } from "@/lib/site-config";
+import { getPhone } from "@/lib/phone";
 
 export const metadata = { title: "Acceptable Use Policy" };
 
-export default function AcceptableUsePage() {
+export default async function AcceptableUsePage() {
+  const phone = await getPhone();
+
   return (
     <PolicyLayout title="Acceptable Use Policy" updated="September 1, 2026">
       <p>
@@ -25,7 +28,7 @@ export default function AcceptableUsePage() {
       <p>
         If you believe someone has misused this site or submitted a request using your
         information without permission, contact us at {site.email} or{" "}
-        {site.phoneDisplay} and we'll investigate.
+        {phone.display} and we'll investigate.
       </p>
 
       <h2>Enforcement</h2>
